@@ -1,21 +1,17 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const sunAnim = keyframes`
-  100% { transform: rotate(360deg); }
-`;
-
 const Circle = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 70%;
+  left: 60%;
+  transform: translate(-50%, -50%);
   width: 2.5em;
   height: 2.5em;
   margin: -1.25em;
   background: #fcf528;
   border-radius: 50%;
   box-shadow: 0 0 0 0.375em #fcf528;
-  animation: ${sunAnim} 12s infinite linear;
 `;
 
 const Rays = styled.div`
