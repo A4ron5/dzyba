@@ -5,9 +5,6 @@ import './index.scss';
 import { Main } from './main';
 
 const Wrapper = styled.div`
-  position: relative;
-  width: 300px;
-  height: 300px;
   margin: 0 auto;
   margin-top: 100px; 
 `;
