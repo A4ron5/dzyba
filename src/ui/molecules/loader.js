@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ShadowAnim = keyframes`
   50% {
@@ -61,4 +62,9 @@ export const Loader = (props) => {
       <Box />
     </Wrapper>
   ) : children);
+};
+
+Loader.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
 };
