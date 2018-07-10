@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { WeatherIcon } from '../molecules';
 
 const Container = styled.div`
-  display: flex;
-  width: 1170px;
-  margin: 0 auto;
   color: #84b2ff;
 `;
 
@@ -25,11 +23,13 @@ const Icon = styled.div`
 
 const Degree = styled.span`
   font-size: 35px;
+  text-align: center;
 `;
 
 const City = styled.span`
   margin-left: auto;
-  padding-right: 35px;
+  width: 33%;
+  text-align: center;
   font-size: 24px;
   text-decoration: underline;
   cursor: pointer;
@@ -40,10 +40,10 @@ const City = styled.span`
 
 const Condition = styled.span`
   font-size: 24px;
-  padding-left: 35px;
+  text-align: center;
 `;
 
-const FooterBlock = styled.div`
+const Block = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -79,37 +79,76 @@ const Footer = styled.section`
 `;
 
 export const WeatherUI = (props) => {
-  const { onClick, city, condition, degree, wind, pressure, humidity } = props;
+  const {
+    onClick, city, condition, degree, wind, pressure, humidity,
+  } = props;
   return (
     <Container>
       <Wrapper>
         <Top>
-          <City onClick={onClick}>{city}</City>
+          <City onClick={onClick}>
+            {city}
+          </City>
         </Top>
         <Middle>
-          <Icon>
-            <WeatherIcon condition={condition} />
-          </Icon>
-          <Degree>{degree}°</Degree>
-          <Condition>{condition}</Condition>
+          <Block>
+            <Icon>
+              <WeatherIcon condition={condition} />
+            </Icon>
+          </Block>
+          <Block>
+            <Degree>
+              {degree}
+              {'°'}
+            </Degree>
+          </Block>
+          <Block>
+            <Condition>
+              {condition}
+            </Condition>
+          </Block>
         </Middle>
-        <Bottom>
-        </Bottom>
+        <Bottom />
         <Footer>
-          <FooterBlock>
-            <BlockName>Wind</BlockName>
-            <BlockDescr>{wind} m/s</BlockDescr>
-          </FooterBlock>
-          <FooterBlock>
-            <BlockName>Pressure</BlockName>
-            <BlockDescr>{pressure} mm Hg</BlockDescr>
-          </FooterBlock>
-          <FooterBlock>
-            <BlockName>Humidity</BlockName>
-            <BlockDescr>{humidity} %</BlockDescr>
-          </FooterBlock>
+          <Block>
+            <BlockName>
+              {'Wind'}
+            </BlockName>
+            <BlockDescr>
+              {wind}
+              {' m/s'}
+            </BlockDescr>
+          </Block>
+          <Block>
+            <BlockName>
+              {'Pressure'}
+            </BlockName>
+            <BlockDescr>
+              {pressure}
+              {' mm Hg'}
+            </BlockDescr>
+          </Block>
+          <Block>
+            <BlockName>
+              {'Humidity'}
+            </BlockName>
+            <BlockDescr>
+              {humidity}
+              {' %'}
+            </BlockDescr>
+          </Block>
         </Footer>
       </Wrapper>
     </Container>
   );
+};
+
+WeatherUI.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  condition: PropTypes.string.isRequired,
+  degree: PropTypes.number.isRequired,
+  pressure: PropTypes.number.isRequired,
+  humidity: PropTypes.number.isRequired,
+  wind: PropTypes.number.isRequired,
+  city: PropTypes.string.isRequired,
 };
