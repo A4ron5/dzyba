@@ -1,23 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { WeatherUI } from '../../ui/organisms';
 import { fetchWeather } from './action';
 import { Loader } from '../../ui/molecules';
 import { Error } from '../error';
 import { Input } from '../input';
 
-class WeatherRaw extends React.Component {
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
+class WeatherRaw extends React.Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     isError: PropTypes.bool.isRequired,
     condition: PropTypes.string.isRequired,
-    degree: PropTypes.string.isRequired,
-    pressure: PropTypes.string.isRequired,
-    humidity: PropTypes.string.isRequired,
-    wind: PropTypes.string.isRequired,
+    degree: PropTypes.number.isRequired,
+    pressure: PropTypes.number.isRequired,
+    humidity: PropTypes.number.isRequired,
+    wind: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
+    fetchWeather: PropTypes.func.isRequired,
   }
 
   state = {
@@ -25,39 +31,46 @@ class WeatherRaw extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchWeather('Moscow');
-  };
-  
+    const { fetchWeather } = this.props;
+    fetchWeather('Moscow');
+  }
+
   handleOpen = () => {
+    const { isInputOpen } = this.state;
     this.setState({
-      isInputOpen: !this.state.isInputOpen
-    })
+      isInputOpen: !isInputOpen,
+    });
   }
 
   render() {
-    const { isFetching, isError, condition, degree, pressure, humidity, wind, city } = this.props;
+    const {
+      isFetching, isError, condition, degree, pressure, humidity, wind, city,
+    } = this.props;
+    const { isInputOpen } = this.state;
     return (
       <Loader loading={isFetching}>
-        { isError ? <Error /> :
-        <React.Fragment>
-          <Input isOpen={this.state.isInputOpen} handleOpen={this.handleOpen}/>
-          <WeatherUI 
-            condition={condition} 
-            degree={degree}
-            pressure={pressure}
-            humidity={humidity}
-            wind={wind} 
-            city={this.props.city}
-            onClick={this.handleOpen}
-          /> 
-        </React.Fragment>
+        { isError ? <Error />
+          : (
+            <Wrapper>
+              <Input isOpen={isInputOpen} handleOpen={this.handleOpen} />
+              <WeatherUI
+                condition={condition}
+                degree={degree}
+                pressure={pressure}
+                humidity={humidity}
+                wind={wind}
+                city={city}
+                onClick={this.handleOpen}
+              />
+            </Wrapper>
+          )
         }
       </Loader>
     );
-  };
-};
+  }
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   state: state.data,
   isFetching: state.reducerWeather.isFetching,
   isError: state.reducerWeather.isError,

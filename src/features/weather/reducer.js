@@ -9,9 +9,9 @@ const defaultState = {
   isFetching: false,
   data: {
     main: {
-      temp: '',
-      pressure: '',
-      humidity: '',
+      temp: 0,
+      pressure: 0,
+      humidity: 0,
     },
     weather: [
       {
@@ -19,7 +19,7 @@ const defaultState = {
       },
     ],
     wind: {
-      speed: '',
+      speed: 0,
     },
     name: '',
   },

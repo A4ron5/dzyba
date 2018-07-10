@@ -14,7 +14,7 @@ const fetchWeatherSuccess = ({ data }) => ({
   data,
 });
 
-const fetchWeatherFailure = (err) => ({
+const fetchWeatherFailure = err => ({
   type: FETCH_WEATHER_FAILURE,
   err,
 });
@@ -23,13 +23,12 @@ export const resetError = () => ({
   type: RESET_ERROR,
 });
 
-export const fetchWeather = (city) => async (dispatch) => {
+export const fetchWeather = city => async (dispatch) => {
   dispatch(fetchWeatherRequest());
   try {
     const data = await api.fetchWeather(city);
     dispatch(fetchWeatherSuccess(data));
-  }
-  catch (err) {
+  } catch (err) {
     dispatch(fetchWeatherFailure(err));
   }
 };
