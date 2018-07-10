@@ -6,4 +6,5 @@ export const InputUI = styled.input`
   color: #84b2ff;
   font-size: 16px;
   padding: 5px;
+  width: 270px;
 `;
