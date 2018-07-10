@@ -7,6 +7,8 @@ import { Main } from './main';
 const Wrapper = styled.div`
   margin: 0 auto;
   margin-top: 100px; 
+  position: relative;
+  max-width: 1170px;
 `;
 
 const Index = () => (
